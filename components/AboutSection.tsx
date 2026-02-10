@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 
 export default function AboutSection() {
   const links = [
-    { label: 'Email', href: 'mailto:ritik@example.com' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/ritikjaiswal' },
-    { label: 'GitHub', href: 'https://github.com/ritikjaiswal' },
-    { label: 'X', href: 'https://x.com/ritikjaiswal' },
+    { label: 'Email', href: 'mailto:tarundhiman.workmail@gmail.com' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tarun-dhiman-dev/' },
+    { label: 'GitHub', href: 'https://github.com/tarun2000' },
+    { label: 'X', href: 'https://x.com/tarun_dhiman13' },
   ];
 
   return (
@@ -55,10 +55,10 @@ export default function AboutSection() {
         className="space-y-4 text-neutral-700 dark:text-neutral-300 leading-relaxed"
       >
         <p>
-          I'm a full-stack developer focused on crafting elegant user experiences and reliable backend systems. With expertise in Next.js, React, TypeScript, and backend services, I ship end-to-end features from idea to production.
+          I'm a full-stack developer focused on crafting elegant user experiences and reliable backend systems. With expertise in Next.js, React, Javascript, and backend services, I ship end-to-end features from idea to production.
         </p>
         <p>
-          I enjoy solving complex problems across UI, APIs, and infrastructure, and I care deeply about performance, DX, and product polish. I'm also an AI engineer, building in the AI and DeFi space with a strong focus on real-world impact.
+          I enjoy solving complex problems across UI, APIs, and infrastructure, and I care deeply about performance, DX, and product polish. and I'm currently growing my expertise in cloud infrastructure and DevOps-focused engineering..
         </p>
       </motion.div>
 
@@ -71,14 +71,14 @@ export default function AboutSection() {
         <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
           Want to build something together? Hit me up on{' '}
           <a
-            href="mailto:ritik@example.com"
+            href="mailto:tarundhiman.workmail@gmail.com"
             className="text-neutral-900 dark:text-neutral-100 underline decoration-neutral-300 dark:decoration-neutral-600 hover:decoration-neutral-600 dark:hover:decoration-neutral-400 transition-colors"
           >
             Email
           </a>{' '}
           or{' '}
           <a
-            href="https://x.com/ritikjaiswal"
+            href="https://x.com/tarun_dhiman13"
             target="_blank"
             rel="noopener noreferrer"
             className="text-neutral-900 dark:text-neutral-100 underline decoration-neutral-300 dark:decoration-neutral-600 hover:decoration-neutral-600 dark:hover:decoration-neutral-400 transition-colors"
