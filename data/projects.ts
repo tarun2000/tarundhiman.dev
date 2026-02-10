@@ -22,13 +22,13 @@ export const projects: Project[] = [
     name: 'Customer Insights',
     description: 'An intiutive dashboard for Customers, Managers and RMs showing customer and product data.',
     techStack: ['React.js', 'Node.js', 'Javascript', 'Tailwind CSS'],
-    link: 'https://www.anz.com/institutional/insights/',
+    link: 'https://github.com/tarun2000/jwtAuth',
   },
   {
     name: 'Markets Insights',
     description: 'A dashboard for customers showing markets data like daily P&L, Revenue and much more.',
     techStack: ['React.js', 'Node.js', 'Javascript', 'Tailwind CSS'],
-    link: 'https://www.anz.com/institutional/insights/',
+    link: 'https://github.com/tarun2000/abnormal-file-vault',
   },
   
 ];
