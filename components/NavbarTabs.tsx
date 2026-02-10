@@ -11,7 +11,7 @@ interface NavbarTabsProps {
 }
 
 const tabs: { id: TabType; label: string }[] = [
-  { id: 'about', label: 'Tarun.me' },
+  { id: 'about', label: 'tarundhiman.dev' },
   { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
 ];
@@ -76,7 +76,7 @@ export default function NavbarTabs({ activeTab, setActiveTab, isScrolled }: Navb
             }}
             className="px-3 py-1.5 text-normal font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors rounded-full"
           >
-            Tarun.me
+            tarundhiman.dev
           </button>
           <button
             onClick={scrollToTop}
