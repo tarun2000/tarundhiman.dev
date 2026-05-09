@@ -1,111 +1,76 @@
 'use client';
 
-import { TabType } from '@/app/page';
 import { motion } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
+import { navItems, SectionId } from '@/data/site';
 
 interface NavbarTabsProps {
-  activeTab: TabType;
-  setActiveTab: (tab: TabType) => void;
+  activeSection: SectionId;
+  onNavigate: (section: SectionId) => void;
+  onOpenCommandPalette: () => void;
   isScrolled: boolean;
 }
 
-const tabs: { id: TabType; label: string }[] = [
-  { id: 'about', label: 'tarundhiman.dev' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
-];
-
-export default function NavbarTabs({ activeTab, setActiveTab, isScrolled }: NavbarTabsProps) {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const getCurrentSectionLabel = () => {
-    return tabs.find(tab => tab.id === activeTab)?.label || 'About';
-  };
-
+export default function NavbarTabs({
+  activeSection,
+  onNavigate,
+  onOpenCommandPalette,
+  isScrolled,
+}: NavbarTabsProps) {
   return (
-    <div className="fixed top-4 left-0 right-0 flex justify-center z-50 pointer-events-none">
+    <div className="fixed inset-x-0 top-3 z-50 flex justify-center px-3 pointer-events-none sm:top-4">
       <motion.nav
         initial={false}
-        animate={{
-          scale: isScrolled ? 0.9 : 1,
-        }}
-        transition={{ duration: 0.2 }}
-        className={`flex items-center justify-center gap-1 bg-black-100 dark:bg-neutral rounded-full px-1 py-1.5 border border-neutral-200 dark:border-neutral-800 backdrop-blur-sm shadow-lg pointer-events-auto ${
-          isScrolled ? 'px-3' : 'px-1.5'
-        }`}
+        animate={{ y: isScrolled ? -1 : 0, scale: isScrolled ? 0.985 : 1 }}
+        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+        className="glass-panel pointer-events-auto flex w-full max-w-6xl items-center gap-2 rounded-full px-2 py-2"
+        aria-label="Primary navigation"
       >
-      {!isScrolled ? (
-        <>
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className="relative px-2.5 py-1.5 text-sm font-normal transition-colors focus:outline-none rounded-full"
-            >
-              {activeTab === tab.id && (
-                <motion.div
-                  layoutId="activeTab"
-                  className="absolute inset-0 bg-black dark:bg-white rounded-full shadow-sm"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
-              )}
-              <span
-                className={`relative z-10 ${
-                  activeTab === tab.id
-                    ? 'text-neutral-100 dark:text-black font-bold'
-                    : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100'
-                }`}
+        <button
+          type="button"
+          onClick={() => onNavigate('home')}
+          className="hidden min-w-0 items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold text-[var(--text)] transition hover:bg-[var(--surface-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] md:flex"
+        >
+          <span className="h-2 w-2 rounded-full bg-[var(--accent)] shadow-[0_0_20px_var(--accent)]" />
+          <span className="truncate">tarundhiman.dev</span>
+        </button>
+
+        <div className="no-scrollbar flex flex-1 items-center gap-1 overflow-x-auto rounded-full bg-[var(--surface-muted)] p-1">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => onNavigate(item.id)}
+                aria-current={isActive ? 'page' : undefined}
+                className="relative whitespace-nowrap rounded-full px-3 py-2 text-xs font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] sm:text-sm"
               >
-                {tab.label}
-              </span>
-            </button>
-          ))}
-          <div className="ml-2 pl-2 pr-1 border-l border-neutral-200 dark:border-neutral-700 flex-shrink-0">
-            <ThemeToggle />
-          </div>
-        </>
-      ) : (
-        <>
-          <button
-            onClick={() => {
-              setActiveTab('about');
-              scrollToTop();
-            }}
-            className="px-3 py-1.5 text-normal font-medium text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors rounded-full"
-          >
-            tarundhiman.dev
-          </button>
-          <button
-            onClick={scrollToTop}
-            className="px-3 py-1.5 text-normal font-bold text-white dark:text-black rounded-full bg-black dark:bg-white transition-colors"
-          >
-            {getCurrentSectionLabel()}
-          </button>
-          <div className="px-2 flex-shrink-0">
-            <ThemeToggle />
-          </div>
-          <span className="text-neutral-300 dark:text-neutral-600 mx-1">|</span>
-          <button
-            onClick={scrollToTop}
-            className="px-2 py-1.5 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors rounded-full flex-shrink-0"
-            aria-label="Scroll to top"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2.5}
-              stroke="currentColor"
-              className="w-3.5 h-3.5"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
-            </svg>
-          </button>
-        </>
-      )}
+                {isActive && (
+                  <motion.span
+                    layoutId="activeSectionPill"
+                    className="absolute inset-0 rounded-full bg-[var(--text)] shadow-[0_10px_30px_rgba(var(--accent-rgb),0.16)]"
+                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                  />
+                )}
+                <span className={`relative z-10 ${isActive ? 'text-[var(--bg)]' : 'text-[var(--muted)] hover:text-[var(--text)]'}`}>
+                  {item.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          onClick={onOpenCommandPalette}
+          className="font-mono hidden h-10 items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface-muted)] px-3 text-xs font-semibold text-[var(--muted)] transition hover:border-[var(--border-strong)] hover:text-[var(--text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] sm:flex"
+          aria-label="Open command palette"
+        >
+          <span>⌘K</span>
+        </button>
+        <ThemeToggle />
       </motion.nav>
     </div>
   );
