@@ -1,29 +1,22 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { projects } from '@/data/projects';
 import ProjectCard from './ProjectCard';
+import SectionShell from './SectionShell';
 
 export default function ProjectsSection() {
   return (
-    <div className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
-          Projects
-        </h2>
-        <p className="text-neutral-600 dark:text-neutral-400">
-          A selection of projects I've built and contributed to.
-        </p>
-      </motion.div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <SectionShell
+      id="projects"
+      eyebrow="Selected work"
+      title="Projects shaped like products, not bullet points."
+      description="A mix of shipped work, private case studies, and portfolio-grade builds focused on dashboards, realtime systems, developer tools, and interview-grade fundamentals."
+    >
+      <div className="space-y-6">
         {projects.map((project, index) => (
-          <ProjectCard key={index} project={project} index={index} />
+          <ProjectCard key={project.title} project={project} index={index} />
         ))}
       </div>
-    </div>
+    </SectionShell>
   );
 }

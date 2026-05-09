@@ -1,26 +1,22 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { experiences } from '@/data/experience';
 import ExperienceCard from './ExperienceCard';
+import SectionShell from './SectionShell';
 
 export default function ExperienceSection() {
   return (
-    <div className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
-          My professional journey so far.
-        </h2>
-      </motion.div>
-
+    <SectionShell
+      id="experience"
+      eyebrow="Experience"
+      title="Professional work with measurable product impact."
+      description="The throughline: dashboards, data pipelines, secure admin surfaces, realtime thinking, and performance improvements that make software feel sharper."
+    >
       <div className="relative">
         {experiences.map((experience, index) => (
-          <ExperienceCard key={index} experience={experience} index={index} />
+          <ExperienceCard key={`${experience.company}-${experience.period}`} experience={experience} index={index} />
         ))}
       </div>
-    </div>
+    </SectionShell>
   );
 }

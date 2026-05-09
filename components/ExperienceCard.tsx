@@ -9,77 +9,44 @@ interface ExperienceCardProps {
 }
 
 export default function ExperienceCard({ experience, index }: ExperienceCardProps) {
+  const [start, end] = experience.period.split(' - ');
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      className="relative pl-8 pb-8 border-l-2 border-neutral-200 dark:border-neutral-700 last:border-l-0 last:pb-0 group"
+    <motion.article
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ delay: index * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative border-l border-[var(--border)] pb-8 pl-6 last:border-l-transparent last:pb-0 sm:pl-9"
     >
-      <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white dark:bg-neutral-900 border-2 border-[#39ff14] shadow-[0_0_8px_rgba(57,255,20,0.6)] group-hover:scale-125 transition-transform duration-200" />
-      
-      <motion.div
-        whileHover={{ x: 0 }}
-        className="bg-neutral-50 dark:bg-black rounded-xl p-6  transition-all duration-200"
-      >
-        <div className="flex flex-col mb-3">
-          <div className="mb-3">
-            <h3 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-1">
-              {experience.company}
-            </h3>
-            <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
-              {experience.role}
-            </p>
+      <div className="absolute -left-[7px] top-2 h-3.5 w-3.5 rounded-full border-2 border-[var(--bg)] bg-[var(--accent)] shadow-[0_0_24px_var(--accent)]" />
+      <div className="glass-panel rounded-3xl p-5 transition duration-300 group-hover:-translate-y-1 group-hover:border-[var(--border-strong)] sm:p-6">
+        <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+          <div>
+            <h3 className="text-2xl font-semibold tracking-[-0.03em] text-[var(--text)]">{experience.company}</h3>
+            <p className="mt-1 text-sm font-semibold text-[var(--muted)]">{experience.role}</p>
           </div>
-          <div className="flex flex-wrap items-center gap-2 text-sm">
-            <span className="text-neutral-500 dark:text-neutral-400">
-              {experience.period.split(' - ')[0]}
+          <div className="flex flex-wrap gap-2 md:justify-end">
+            <span className="font-mono rounded-full border border-[var(--border)] bg-[var(--surface-muted)] px-3 py-1 text-xs text-[var(--muted)]">
+              {start}
             </span>
-            {experience.period.includes('Present') && (
-              <span className="px-2 py-0.5 text-xs font-semibold text-[#39ff14] bg-[#39ff14]/10 dark:bg-[#39ff14]/20 rounded-md border border-[#39ff14]/30 shadow-[0_0_4px_rgba(57,255,20,0.3)]">
-                Present
-              </span>
-            )}
-            {!experience.period.includes('Present') && (
-              <span className="text-neutral-500 dark:text-neutral-400">
-                - {experience.period.split(' - ')[1]}
-              </span>
-            )}
-            {experience.location.includes('Remote') && (
-              <>
-                {experience.location.includes(',') ? (
-                  <>
-                    <span className="text-neutral-500 dark:text-neutral-400">
-                      {experience.location.split(',')[1].trim()}
-                    </span>
-                    <span className="px-2 py-0.5 text-xs font-semibold text-[#39ff14] bg-[#39ff14]/10 dark:bg-[#39ff14]/20 rounded-md border border-[#39ff14]/30 shadow-[0_0_4px_rgba(57,255,20,0.3)]">
-                      Remote
-                    </span>
-                  </>
-                ) : (
-                  <span className="px-2 py-0.5 text-xs font-semibold text-[#39ff14] bg-[#39ff14]/10 dark:bg-[#39ff14]/20 rounded-md border border-[#39ff14]/30 shadow-[0_0_4px_rgba(57,255,20,0.3)]">
-                    Remote
-                  </span>
-                )}
-              </>
-            )}
-            {!experience.location.includes('Remote') && (
-              <span className="text-neutral-500 dark:text-neutral-400">
-                {experience.location}
-              </span>
-            )}
+            <span className="font-mono rounded-full border border-[var(--border)] bg-[var(--surface-muted)] px-3 py-1 text-xs text-[var(--muted)]">
+              {end}
+            </span>
+            <span className="font-mono rounded-full border border-[var(--accent)]/30 bg-[var(--accent-soft)] px-3 py-1 text-xs font-semibold text-[var(--accent-strong)]">
+              {experience.location}
+            </span>
           </div>
         </div>
-        
-        <ul className="space-y-2 mt-4">
-          {experience.bullets.map((bullet, idx) => (
-            <li key={idx} className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed flex items-start">
-              <span className="mr-2 text-neutral-400 dark:text-neutral-500">•</span>
+        <ul className="mt-6 grid gap-3">
+          {experience.bullets.map((bullet) => (
+            <li key={bullet} className="flex gap-3 text-sm leading-7 text-[var(--muted)]">
+              <span className="mt-3 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--accent)]" />
               <span>{bullet}</span>
             </li>
           ))}
         </ul>
-      </motion.div>
-    </motion.div>
+      </div>
+    </motion.article>
   );
 }
